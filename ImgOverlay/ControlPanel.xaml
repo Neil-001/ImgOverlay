@@ -4,16 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ImgOverlay"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="Image Overlay" Height="122.925" Width="300"
+        Title="Image Overlay" Height="360" Width="400"
         ResizeMode="CanMinimize" 
         DragOver="ControlPanel_DragOver" 
         AllowDrop="True" 
         Drop="ControlPanel_Drop">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
@@ -22,19 +23,124 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="LoadButton" Grid.Column="0" Click="LoadButton_Click">
+            <Button x:Name="LoadButton" Grid.Column="0" Click="LoadButton_Click" Margin="5" TabIndex="0">
                 <TextBlock Text="Load..." />
             </Button>
-            <ToggleButton x:Name="DragButton" Grid.Column="1" Click="DragButton_Click">
+            <ToggleButton x:Name="DragButton" Grid.Column="1" Click="DragButton_Click" Margin="5" TabIndex="1" IsEnabled="False">
                 <TextBlock Text="Move Image" />
             </ToggleButton>
         </Grid>
 
-        <Grid Grid.Row="1" Margin="0,0,0,16">
-            <Slider x:Name="OpacitySlider" Minimum="0" Maximum="1" Value="1" ValueChanged="OpacitySlider_ValueChanged" Margin="0,3,0,6" />
-        </Grid>
-        <Grid Margin="0,22,0,16" Grid.Row="1">
-            <Slider x:Name="RotateSlider" Minimum="-180" Maximum="180" Value="0" ValueChanged="RotateSlider_ValueChanged" Margin="0,3,0,-15" />
-        </Grid>
+        <StackPanel Grid.Row="1" Margin="5,0,5,5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Opacity" Grid.Column="0"/>
+                <TextBlock Text="{Binding ElementName=OpacitySlider, Path=Value, StringFormat={}{0:F2}}" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Slider x:Name="OpacitySlider" Minimum="0" Maximum="1" Value="1" ValueChanged="OpacitySlider_ValueChanged" Margin="5,0" Grid.Column="0" TabIndex="2"/>
+                <Button x:Name="ResetOpacityButton" Content="Reset" Grid.Column="1" Click="ResetOpacityButton_Click" Padding="5,0" TabIndex="3"/>
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Scale" Grid.Column="0"/>
+                <TextBlock Text="{Binding ElementName=ScaleSlider, Path=Value, StringFormat={}{0:F2}x}" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Slider x:Name="ScaleSlider" Minimum="0" Maximum="4" Value="1" ValueChanged="ScaleSlider_ValueChanged" Margin="5,0" Grid.Column="0" TabIndex="4" SmallChange="0.01"/>
+                <Button x:Name="ResetScaleButton" Content="Reset" Grid.Column="1" Click="ResetScaleButton_Click" Padding="5,0" TabIndex="5"/>
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Rotation" Grid.Column="0"/>
+                <TextBlock Text="{Binding ElementName=RotateSlider, Path=Value, StringFormat={}{0:F0}°}" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Slider x:Name="RotateSlider" Minimum="-180" Maximum="180" Value="0" ValueChanged="RotateSlider_ValueChanged" Margin="5,0" Grid.Column="0" TabIndex="6"/>
+                <Button x:Name="ResetRotateButton" Content="Reset" Grid.Column="1" Click="ResetRotateButton_Click" Padding="5,0" TabIndex="7"/>
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Offset X" Grid.Column="0"/>
+                <TextBlock Text="{Binding ElementName=OffsetXSlider, Path=Value, StringFormat={}{0:F0}px}" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Slider x:Name="OffsetXSlider" Minimum="-100" Maximum="100" Value="0" ValueChanged="OffsetXSlider_ValueChanged" Margin="5,0" Grid.Column="0" TabIndex="8" SmallChange="1"/>
+                <Button x:Name="ResetOffsetXButton" Content="Reset" Grid.Column="1" Click="ResetOffsetXButton_Click" Padding="5,0" TabIndex="9"/>
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Offset Y" Grid.Column="0"/>
+                <TextBlock Text="{Binding ElementName=OffsetYSlider, Path=Value, StringFormat={}{0:F0}px}" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+            </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Slider x:Name="OffsetYSlider" Minimum="-100" Maximum="100" Value="0" ValueChanged="OffsetYSlider_ValueChanged" Margin="5,0" Grid.Column="0" TabIndex="10" SmallChange="1"/>
+                <Button x:Name="ResetOffsetYButton" Content="Reset" Grid.Column="1" Click="ResetOffsetYButton_Click" Padding="5,0" TabIndex="11"/>
+            </Grid>
+
+            <Grid Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Label Content="X1" Grid.Row="0" Grid.Column="0"/>
+                <xctk:IntegerUpDown x:Name="X1UpDown" Grid.Row="0" Grid.Column="1" Margin="5" ValueChanged="CoordinateUpDown_ValueChanged"/>
+
+                <Label Content="Y1" Grid.Row="0" Grid.Column="2"/>
+                <xctk:IntegerUpDown x:Name="Y1UpDown" Grid.Row="0" Grid.Column="3" Margin="5" ValueChanged="CoordinateUpDown_ValueChanged"/>
+
+                <Label Content="X2" Grid.Row="1" Grid.Column="0"/>
+                <xctk:IntegerUpDown x:Name="X2UpDown" Grid.Row="1" Grid.Column="1" Margin="5" ValueChanged="CoordinateUpDown_ValueChanged"/>
+
+                <Label Content="Y2" Grid.Row="1" Grid.Column="2"/>
+                <xctk:IntegerUpDown x:Name="Y2UpDown" Grid.Row="1" Grid.Column="3" Margin="5" ValueChanged="CoordinateUpDown_ValueChanged"/>
+            </Grid>
+        </StackPanel>
     </Grid>
 </Window>
