@@ -106,6 +106,11 @@ namespace ImgOverlay
 
         public void UpdateImagePositionAndSize(double x1, double y1, double x2, double y2)
         {
+            // If the coordinates are invalid, do nothing.
+            if (x1 >= x2 || y1 >= y2)
+            {
+                return;
+            }
             this.Left = x1;
             this.Top = y1;
             this.Width = x2 - x1;
