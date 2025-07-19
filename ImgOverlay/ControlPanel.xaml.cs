@@ -1,6 +1,8 @@
 ﻿using Microsoft.Win32;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 using System.Windows.Interop;
 
 namespace ImgOverlay
@@ -82,10 +84,10 @@ namespace ImgOverlay
         public void UpdateCoordinateUpDowns(double x1, double y1, double x2, double y2)
         {
             _isUpdatingFromMainWindow = true;
-            X1UpDown.Value = (int)x1;
-            Y1UpDown.Value = (int)y1;
-            X2UpDown.Value = (int)x2;
-            Y2UpDown.Value = (int)y2;
+            X1UpDown.Text = ((int)x1).ToString();
+            Y1UpDown.Text = ((int)y1).ToString();
+            X2UpDown.Text = ((int)x2).ToString();
+            Y2UpDown.Text = ((int)y2).ToString();
             _isUpdatingFromMainWindow = false;
         }
 
@@ -152,17 +154,24 @@ namespace ImgOverlay
             }
         }
 
-        private void CoordinateUpDown_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        private void CoordinateTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (_isUpdatingFromMainWindow) return;
 
-            if (X1UpDown.Value.HasValue && Y1UpDown.Value.HasValue && X2UpDown.Value.HasValue && Y2UpDown.Value.HasValue)
+            if (int.TryParse(X1UpDown.Text, out int x1) &&
+                int.TryParse(Y1UpDown.Text, out int y1) &&
+                int.TryParse(X2UpDown.Text, out int x2) &&
+                int.TryParse(Y2UpDown.Text, out int y2))
             {
-                (Owner as MainWindow)?.UpdateImagePositionAndSize(
-                    X1UpDown.Value.Value,
-                    Y1UpDown.Value.Value,
-                    X2UpDown.Value.Value,
-                    Y2UpDown.Value.Value);
+                (Owner as MainWindow)?.UpdateImagePositionAndSize(x1, y1, x2, y2);
+            }
+        }
+
+        private void CoordinateTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsDigit(e.Text, e.Text.Length - 1))
+            {
+                e.Handled = true;
             }
         }
     }

@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ImgOverlay"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="Image Overlay" Width="400"
         SizeToContent="Height"
@@ -136,16 +135,16 @@
                     </Grid.RowDefinitions>
 
                     <Label Content="X1" Grid.Row="0" Grid.Column="0"/>
-                    <xctk:IntegerUpDown x:Name="X1UpDown" Grid.Row="0" Grid.Column="1" Margin="5" ValueChanged="CoordinateUpDown_ValueChanged"/>
+                    <TextBox x:Name="X1UpDown" Grid.Row="0" Grid.Column="1" Margin="5" TextChanged="CoordinateTextBox_TextChanged" PreviewTextInput="CoordinateTextBox_PreviewTextInput"/>
 
                     <Label Content="Y1" Grid.Row="0" Grid.Column="2"/>
-                    <xctk:IntegerUpDown x:Name="Y1UpDown" Grid.Row="0" Grid.Column="3" Margin="5" ValueChanged="CoordinateUpDown_ValueChanged"/>
+                    <TextBox x:Name="Y1UpDown" Grid.Row="0" Grid.Column="3" Margin="5" TextChanged="CoordinateTextBox_TextChanged" PreviewTextInput="CoordinateTextBox_PreviewTextInput"/>
 
                     <Label Content="X2" Grid.Row="1" Grid.Column="0"/>
-                    <xctk:IntegerUpDown x:Name="X2UpDown" Grid.Row="1" Grid.Column="1" Margin="5" ValueChanged="CoordinateUpDown_ValueChanged"/>
+                    <TextBox x:Name="X2UpDown" Grid.Row="1" Grid.Column="1" Margin="5" TextChanged="CoordinateTextBox_TextChanged" PreviewTextInput="CoordinateTextBox_PreviewTextInput"/>
 
                     <Label Content="Y2" Grid.Row="1" Grid.Column="2"/>
-                    <xctk:IntegerUpDown x:Name="Y2UpDown" Grid.Row="1" Grid.Column="3" Margin="5" ValueChanged="CoordinateUpDown_ValueChanged"/>
+                    <TextBox x:Name="Y2UpDown" Grid.Row="1" Grid.Column="3" Margin="5" TextChanged="CoordinateTextBox_TextChanged" PreviewTextInput="CoordinateTextBox_PreviewTextInput"/>
                 </Grid>
             </Expander>
 
