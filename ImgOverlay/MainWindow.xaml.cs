@@ -70,6 +70,18 @@ namespace ImgOverlay
             return true;
         }
 
+        public void SetScalingMode(bool useNearestNeighbor)
+        {
+            if (useNearestNeighbor)
+            {
+                RenderOptions.SetBitmapScalingMode(DisplayImage, BitmapScalingMode.NearestNeighbor);
+            }
+            else
+            {
+                RenderOptions.SetBitmapScalingMode(DisplayImage, BitmapScalingMode.HighQuality);
+            }
+        }
+
         public void ChangeOpacity(float opacity)
         {
             DisplayImage.Opacity = opacity;

@@ -114,6 +114,11 @@ namespace ImgOverlay
             OffsetYSlider.Value = 0;
         }
 
+        private void NearestNeighborCheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            (Owner as MainWindow)?.SetScalingMode(NearestNeighborCheckBox.IsChecked ?? false);
+        }
+
         private void ControlPanel_DragOver(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
